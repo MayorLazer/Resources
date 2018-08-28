@@ -1,0 +1,197 @@
+// Selection behaviour
+::selection {
+    background: red;
+    color: white;
+}
+
+/* Custom Scroll Bar*/
+
+&::-webkit-scrollbar {
+    width: 7px;
+}
+
+&::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+
+&::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background: red;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+&::-webkit-scrollbar-thumb:window-inactive {
+    background: red;
+}
+
+// Time and action when fallback occurs
+@font-face {
+    font-family: 'MyWebFont';
+    /* Define the custom font name */
+    src: url('myfont.woff2') format('woff2'); // short time infinite swap
+    // FOUT flash of un-styled text
+    font-display: swap; // medium time infinite swap
+    // FOIT flash of invisible text
+    font-display: block; // short time short swap
+    font-display: fallback;
+}
+
+// Fonts based on REM
+html {
+    font-size: 10px;
+}
+
+h1,
+h2,
+h3 {
+    font-size: 1.6rem; //16px
+}
+
+.dont-break-out {
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+// Adjust font for when fallback font happens
+.adjust {
+    font-size-adjust: auto;
+}
+
+//  Vertical Text
+.vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+}
+
+// Fluid typing
+@mixin fluid-type($min-font-size: 12px,
+$max-font-size: 21px,
+$lower-range: 420px,
+$upper-range: 900px) {
+    font-size: calc(#{$min-font-size}+#{(($max-font-size / ($max-font-size * 0 + 1)) - ($min-font-size / ($min-font-size * 0 + 1)))} * ( (100vw - #{$lower-range}) / #{(($upper-range / ($upper-range * 0 + 1)) - ($lower-range / ($lower-range * 0 + 1)))}));
+    @media screen and (max-width: $lower-range) {
+        font-size: $min-font-size;
+    }
+    @media screen and (min-width: $upper-range) {
+        font-size: $max-font-size;
+    }
+}
+
+p {
+    @include fluid-type(14px,
+    20px);
+    font-weight: normal
+}
+
+/* Animations  */
+
+@keyframes ani-name {
+    from {
+        transform: scale(2.0);
+    }
+    to {
+        transform: scale(1.0);
+    }
+    0% {
+        transform: scale(2.0);
+    }
+    100% {
+        transform: scale(1.0);
+    }
+}
+
+.animate-me {
+    // ease- when is slow
+    animation: ani-name 2s ease-in-out infinite; // ease IN for starting animation
+    // ease OUT for finishing animation
+    // ease IN OUT for natural
+    // linear for constant movement
+}
+
+// Art Directions
+.img-art {
+    object-fit: cover;
+}
+
+// Blend Images Filter effect
+.filter-img {
+    filter: blur(4%);
+}
+
+// Clip-path make an element certain shape
+.clip-path {
+    clip-path: circle(); // https://bennettfeely.com/clippy/
+}
+
+//background- clip make a see through with text
+.text-image_below {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+// Transparent text and background mixing 2 colors
+.blend {
+    background: red;
+    color: white;
+    mix-blend-mode: multiply;
+}
+
+// Perspective
+.perspective {
+    // small close, large far
+    perspective: 10cm;
+}
+
+// SVG
+.background-svg {
+    background: url('data:image/svg+xml,\
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">\
+			<circle r="20" cx="50" cy="50" fill="red" />\
+		</svg>');
+}
+
+// var path = document.querySelector('.path');
+// var length = path.getTotalLength();
+@keyframes animate-svg {
+    // Start at 20 so it wont restart rough
+    20% {
+        transform: rotate(5deg);
+    } // Finish at 80 so it doesn't end rough
+    80% {
+        transform: rotate(10deg);
+    }
+}
+
+// SVG transform
+.svg-transform {
+    animation: animate-svg 1s linear infinite; // X, Y from it starting point
+    transform-origin: 1px 1px;
+}
+
+// Reflection of objects
+.reflection {
+    // hard color
+    -webkit-box-reflect: below 10px; //above right left
+    // masked color
+    -webkit-box-reflect: below 0 linear-gradient(transparent, white);
+}
+
+// Accessibility tab from within a menu
+li.tab-accessibility:focus-within ul {
+    display: initial;
+}
