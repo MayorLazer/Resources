@@ -11,3 +11,23 @@
 	class="">
 	<path d=""></path>
 </svg>
+
+SVG inline full access to modify it
+
+SVG background treated as img (filter, transforms available)
+
+SVG img Non interactive
+<img src="your.svg" onerror="this.src='your.png'">
+<style>
+    .fill {
+        filter: hue-rotate(100deg);
+    }
+</style>
+
+SVG OJBECT free fallback
+<object data="your.svg" type="image/svg+xml">
+    <img src="yourfallback.jpg" />
+</object>
+
+<object data="your.svg" type="image/svg+xml">
+</object>
