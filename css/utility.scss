@@ -195,3 +195,15 @@ p {
 li.tab-accessibility:focus-within ul {
     display: initial;
 }
+
+// Fix blurriness on transforms
+.unblur-transforms {
+    backface-visibility: hidden;
+    * {
+        -webkit-font-smoothing: antialiased;
+        font-smoothing: antialiased !important;
+    }
+    &:hover {
+        transform: perspective(1px) scale(1.04) scale3d( 1.04, 1.04, 1.04);
+    }
+}
